@@ -13,13 +13,15 @@ import java.util.UUID;
  * This class is use to transfer the Passenger Details
  */
 public class PassengerDetailsDto {
+    private static Long generatedNumber = 1000000000L;
+
     private BigInteger pnrNumber;
     private String passengerName;
     private Integer passengerAge;
     private BigInteger passengerUIN;
     private String gender;
 
-    private static Long generatedNumber = 1000000000L;
+
     public PassengerDetailsDto(){
         this.pnrNumber = generateValue();
     }
