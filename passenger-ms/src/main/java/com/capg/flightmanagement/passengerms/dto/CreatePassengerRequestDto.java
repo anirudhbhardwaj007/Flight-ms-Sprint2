@@ -12,7 +12,7 @@ public class CreatePassengerRequestDto {
 	private BigInteger uin;
 	private BigInteger pnr;
 	
-	@Size(min=3,max=20)
+	
 	private String passengerName;
 	private int passengerAge;
 	private double luggage;

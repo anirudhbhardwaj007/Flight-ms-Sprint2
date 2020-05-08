@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 import com.capg.flightmanagement.passengerms.exceptions.InvalidArgumentException;
 
-public class Validation {
+public class PassengerValidation {
 
 	public static void validateUin(BigInteger uin)
 	{

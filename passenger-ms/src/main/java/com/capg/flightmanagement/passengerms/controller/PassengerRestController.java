@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import com.capg.flightmanagement.passengerms.dto.CreatePassengerRequestDto;
 import com.capg.flightmanagement.passengerms.dto.PassengerDetailsDto;
@@ -33,11 +35,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 
- * @author Anushka Soni
- *
- */
+
 @RestController
 @RequestMapping("/passengers")
 @Validated
@@ -48,7 +46,7 @@ public class PassengerRestController {
 	private IPassengerService passengerService;
 
 	@Value("${BookingServiceUrl}")
-	private String BookingBaseUrl;
+	private String bookingBaseUrl;
 	
 	
 	
@@ -118,7 +116,7 @@ public class PassengerRestController {
 	 */
 	
 	@PutMapping("/modify/{uin}")
-		ResponseEntity<PassengerDetailsDto> modify( @PathVariable("uin") BigInteger uin,@Valid @RequestBody CreatePassengerRequestDto dto)
+		ResponseEntity<PassengerDetailsDto> modify(@PathVariable("uin") BigInteger uin,@Valid @RequestBody CreatePassengerRequestDto dto)
 		{
 		Passenger passenger=passengerService.findPassengerByUin(uin);
 		passenger.setUin(uin);
