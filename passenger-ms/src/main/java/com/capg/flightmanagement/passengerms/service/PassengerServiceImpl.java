@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.capg.flightmanagement.passengerms.dao.IPassengerDao;
 import com.capg.flightmanagement.passengerms.entities.Passenger;
 import com.capg.flightmanagement.passengerms.exceptions.PassengerNotFoundException;
-import com.capg.flightmanagement.passengerms.util.Validation;
+import com.capg.flightmanagement.passengerms.util.PassengerValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +36,7 @@ public class PassengerServiceImpl implements IPassengerService{
 	@Override
 	public Passenger addPassenger(Passenger passenger) {
 		BigInteger uin=passenger.getUin();
-		Validation.validateUin(uin);
+		PassengerValidation.validateUin(uin);
 		return dao.save(passenger);
 	}
 /**
