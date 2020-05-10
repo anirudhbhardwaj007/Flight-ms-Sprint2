@@ -9,17 +9,16 @@ import com.capg.flightmanagement.bookingms.services.IBookingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,7 @@ public class BookingRestController {
      * @return
      */
     @PostMapping("/new")
-    public ResponseEntity<BookingDetailsDto> createBookingRequest(@RequestBody BookingRequestDto bookingRequestDto){
+    public ResponseEntity<BookingDetailsDto> createBookingRequest(@RequestBody @Valid BookingRequestDto bookingRequestDto){
         BookingDetailsDto bookingDetailsDto = convertToResponseDto(bookingRequestDto);
         Booking booking = new Booking();
 
@@ -70,6 +69,7 @@ public class BookingRestController {
 
         booking.setPassengersUINList(passengerUINList);
         booking.setNoOfPassenger(passengerUINList.size());
+        bookingService.validateBooking(booking);
         booking = bookingService.addBooking(booking);
         acknowledgeBooking(booking);
         requestPassengerStore(bookingDetailsDto.getPassengerList());
@@ -241,7 +241,7 @@ public class BookingRestController {
      */
     private void acknowledgeCancelBooking(Booking booking){
 /*
-        String url = flightScheduleServiceBaseUrl+"/canceled";
+        String url = flightScheduleServiceBaseUrl+"/cancelbooking";
         restTemplate.put(url,booking);
 */
     }
@@ -252,7 +252,7 @@ public class BookingRestController {
      */
     private void cancelRequestPassengerStore(List<BigInteger> passengerUINList){
 /*
-        String url = passengerServiceBaseUrl+"/canceled";
+        String url = passengerServiceBaseUrl+"/remove";
         restTemplate.put(url,passengerUINList);
 */
     }
