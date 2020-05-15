@@ -91,20 +91,12 @@ throw new PassengerNotFoundException("passenger not exits"+uin);
 
 @Override
 public Passenger modifyPassenger(Passenger passenger) {
-	BigInteger uin=passenger.getUin();
-	Optional<Passenger> optional=dao.findById(uin);
-	if(optional.isPresent()) {
-		Passenger passenger1=optional.get();
-		passenger1=dao.save(passenger);
-		return passenger1;
+	return dao.save(passenger);
 }
-	throw new PassengerNotFoundException("No passenger to be modified");
-
 
 	
 }
 
-}
 
 		
 	
